@@ -1,0 +1,38 @@
+# Yellowknife X4 was an early PREP/CHRP reference design, using a 255BGA socket
+# called the "interposer", which adapted various BGA parts to a pin-socket.  Interposers
+# up to MPC74xx were supported.  This interposer was created by Joey Tsai and was
+# later adopted by Apple for the G3 Macs.
+#
+echo "Yellowknife/X4 system"
+
+cpu -s MPC603
+nb  -s MPC106
+
+
+#       Class 	   Start     End       Mask       IO   Alloc  Driver        Name
+#       =========  ========  ========  ========  ====  =====  ============  ==========
+sys -a  MEM	   00000000  003FFFFF  003FFFFF   RW   32MiB  -		    "SDRAM"
+sys -a  IGNORE     80000000  8FFFFFFF  0FFFFFFF   HW       -  -		    -
+sys -a  IO	   FE000000  FE00FFFF  0000FFFF   HW       -  NBIO	    "NB IO"
+sys -a  IO	   FEC00000  FEFFFFFF  001FFFFF   HW       -  NB	    "NB CFG"
+sys -a  MEM	   FF000000  FFFFFFFF  000FFFFF   RO    8MiB  - 	    "FLASH"
+
+
+fl -a fff00000 images/dink12p1_yk.bin
+sym -n 257 -f images/dink12p1_yk.sym
+
+# patch out time-delay BDNZ instructions.
+mm fff03708=60000000
+mm fff03740=60000000
+
+# patch GetBusPeriod to return 33 ns
+# lis r1,0
+# ori r1,r1,33
+# blr
+mm fff1f4a4=3860000f
+
+# main
+#tr fff00100
+#ss 10
+# init_IO_values after SuperIO detect.
+go fff00100

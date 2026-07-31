@@ -1,0 +1,28 @@
+# Sandpoint with PMC8240
+#
+echo "Sandpoint w/PMC8240 running SPInit"
+
+cpu -s MPC8240
+nb  -s KAHLUA
+
+
+#       Class 	   Start     End       Mask       IO   Alloc  Driver        Name
+#       =========  ========  ========  ========  ====  =====  ============  ==========
+sys -a  MEM	   00000000  003FFFFF  003FFFFF   RW   32MiB  -		    "SDRAM"
+sys -a  IGNORE	   80000000  8FFFFFFF  0FFFFFFF   HW       -  -		    -
+sys -a  IGNORE	   FC000000  FCFFFFFF  0FFFFFFF   HW       -  -		    -
+sys -a  IO 	   FC000000  FCFFFFFF  00FFFFFF   HW       -  -		    "EUMBBAR"
+sys -a  IO	   FE000000  FE00FFFF  0000FFFF   HW       -  NBIO	    "NB IO"
+sys -a  IO	   FEC00000  FEFFFFFF  001FFFFF   HW       -  NB	    "NB CFG"
+sys -a  MEM	   FF000000  FFFFFFFF  000FFFFF   RO    8MiB  - 	    "FLASH"
+
+# Load SPINT
+
+fl -a fff00000 images/spinit.bin
+#sym -n 257 -f images/spinit.sym
+
+
+echo --------------------------------------------------
+#tr fff00100
+#ss 10
+go fff00100

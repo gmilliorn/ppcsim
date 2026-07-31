@@ -1,0 +1,37 @@
+# Excimer system
+#   Minimal system with an MPC603e and direct-attach flash, burst SRAM and a UART.
+#   Controlled by an inexpensive CPLD.
+
+echo "Excimer MPC603e system"
+
+cpu -s MPC603
+
+#       Class 	   Start     End       Mask       IO   Alloc  Driver        Name
+#       =========  ========  ========  ========  ====  =====  ============  ==========
+sys -a  MEM	   00000000  000FFFFF  000FFFFF   RW    8MiB  -		    "SRAM"
+sys -a  IO	   40000000  4FFFFFFF  0FFFFFFF   HW       -  UART-EXC	    "UART"
+sys -a  IGNORE	   FEC00000  FEEFFFFF  000FFFFF   RW       -  -		    "PCI CCR"
+sys -a  MEM	   FFC00000  FFFFFFFF  000FFFFF   RO    8MiB  - 	    "FLASH"
+sys -a  ALIAS	   60000000  6FFFFFFF  000FFFFF   RW       -  - 	    -
+
+
+fl -a fff00000 images/mdinkmet.bin
+
+# No sym table found.
+sym -d system_reset=33c8
+sym -d try_excimer=34c8
+sym -d start_init=34ec
+sym -d excimer_init=3844
+sym -d lp1=3884
+sym -d verlp=38c4
+sym -d dink_loop=4f98
+sym -d init_IO_values=56a4
+sym -d dink_initialize=58c8
+sym -d main=5d40
+sym -D io_base_addr=2ca04
+sym -D board_type=2ca10
+
+# main
+#br 1087c
+tr fff00100
+cont

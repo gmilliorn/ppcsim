@@ -1,0 +1,44 @@
+# Sandpoint motherboard w/PMC8240 system definitions.
+#   The MPC8240 is basically an MPC603e + MPC106
+#
+echo "Sandpoint w/PMC8240"
+
+cpu -s MPC8240
+nb  -s MPC106
+
+
+#       Class 	   Start     End       Mask       IO   Alloc  Driver        Name
+#       =========  ========  ========  ========  ====  =====  ============  ==========
+sys -a  MEM	   00000000  003FFFFF  003FFFFF   RW   32MiB  -		    "SDRAM"
+sys -a  IGNORE	   80000000  8FFFFFFF  0FFFFFFF   HW       -  -		    -
+sys -a  IGNORE	   FC000000  FCFFFFFF  0FFFFFFF   HW       -  -		    -
+sys -a  #IO 	   FC000000  FCFFFFFF  00FFFFFF   HW       -  -		    "EUMBBAR"
+sys -a  IO	   FE000000  FE00FFFF  0000FFFF   HW       -  NBIO	    "NB IO"
+sys -a  IO	   FEC00000  FEFFFFFF  001FFFFF   HW       -  NB	    "NB CFG"
+sys -a  MEM	   FF000000  FFFFFFFF  000FFFFF   RO    8MiB  - 	    "FLASH"
+
+
+# Load image and symbols.
+#
+fl -a fff00000 images/dink12p1_yk.bin
+sym -n 257 -f images/dink12p1_yk.sym
+
+
+# patch out time-delay BDNZ instructions.
+mm fff03708=60000000
+mm fff03740=60000000
+
+
+# patch GetBusPeriod to return 33 ns
+# lis r1,0
+# ori r1,r1,33
+# blr
+mm fff1f4a4=3860000f
+
+
+# ready
+echo --------------------------------------------------
+
+#tr fff00100
+#ss 10
+go fff00100
