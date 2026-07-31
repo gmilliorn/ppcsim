@@ -1,6 +1,48 @@
+N.B. This project contains two sets of files, some under license by Motorola
+and some MIT licensed by Gary Milliorn.
+
+//--------------------------------------------------------------------------------
+
+/***************************************************************************
+ *     Copyright Motorola, Inc. 1989-2002 ALL RIGHTS RESERVED
+ *
+ *  $Id: ppcsim.c,v 1.1.1.1 2002/04/25 22:20:45 maurie Exp $
+ *
+ * You are hereby granted a copyright license to use, modify, and
+ * distribute the SOFTWARE, also know as DINK32 (Dynamic Interactive Nano 
+ * Kernel for 32-bit processors) solely in conjunction with the development 
+ * and marketing of your products which use and incorporate microprocessors 
+ * which implement the PowerPC(TM) architecture manufactured by 
+ * Motorola and provided you comply with all of the following restrictions 
+ * i) this entire notice is retained without alteration in any
+ * modified and/or redistributed versions, and 
+ * ii) that such modified versions are clearly identified as such. 
+ * No licenses are granted by implication, estoppel or
+ * otherwise under any patents or trademarks of Motorola, Inc.
+ * 
+ * The SOFTWARE is provided on an "AS IS" basis and without warranty. To
+ * the maximum extent permitted by applicable law, MOTOROLA DISCLAIMS ALL
+ * WARRANTIES WHETHER EXPRESS OR IMPLIED, INCLUDING IMPLIED WARRANTIES OF
+ * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE AND ANY WARRANTY 
+ * AGAINST INFRINGEMENT WITH REGARD TO THE SOFTWARE 
+ * (INCLUDING ANY MODIFIED VERSIONS THEREOF) AND ANY ACCOMPANYING 
+ * WRITTEN MATERIALS.
+ * 
+ * To the maximum extent permitted by applicable law, IN NO EVENT SHALL
+ * MOTOROLA BE LIABLE FOR ANY DAMAGES WHATSOEVER (INCLUDING WITHOUT 
+ * LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS 
+ * INTERRUPTION, LOSS OF BUSINESS INFORMATION,
+ * OR OTHER PECUNIARY LOSS) ARISING OF THE USE OR INABILITY TO USE THE
+ * SOFTWARE.
+ * Motorola assumes no responsibility for the maintenance and support of
+ * the SOFTWARE.
+ ************************************************************************/
+
+//--------------------------------------------------------------------------------
+
 MIT License
 
-Copyright (c) 2026 [Your Name or Username]
+Copyright (c) 2026 Gary Milliorn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
